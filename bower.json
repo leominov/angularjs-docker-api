@@ -1,0 +1,19 @@
+{
+  "name": "js-docker",
+  "version": "0.0.0",
+  "authors": [
+    "leoderoko <leoderoko@gmail.com>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "bootstrap": "~3.3.5",
+    "angularjs": "~1.4.5"
+  }
+}

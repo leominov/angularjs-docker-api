@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html ng-app="app">
+<head>
+    <title>Docker Remote API Test</title>
+    <meta http-equiv=Content-Type content="text/html;charset=UTF-8">
+    <link rel="stylesheet" href="bower_components/bootstrap/dist/css/bootstrap.css">
+    <style media="screen">
+      .docker-container {
+        cursor: pointer;
+      }
+    </style>
+</head>
+<body>
+  <div class="container">
+    <div class="page-header">
+      <h1>Docker Remote API Test</h1>
+    </div>
+    <div ng-controller="DockerController">
+      <form name="DockerConf" class="form-inline">
+        <input type="text" class="form-control" placeholder="http://127.0.0.1:4243" ng-model="host" ng-disabled="isSet">
+        <button type="submit" class="btn btn-default" ng-click="Set()">Set</button>
+      </form>
+      <table class="table table-striped" ng-show="containers.length">
+        <thead>
+          <tr>
+            <th style="width: 12%;">Id</th>
+            <th>Name</th>
+            <th>Image</th>
+            <th>Command</th>
+            <th style="width: 16%;">Status</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr class="docker-container" ng-repeat="container in containers" ng-click="getContainer(container)">
+            <td>{{ container.Id|limitTo:12 }}</td>
+            <td>{{ container.Names[container.Names.length-1] }}</td>
+            <td>{{ container.Image }}</td>
+            <td>{{ container.Command }}</td>
+            <td>{{ container.Status }}</td>
+          </tr>
+        </tbody>
+      </table>
+      <div ng-show="htop.Processes.length">
+        <h2>List processes inside {{ selectedcontainerId|limitTo:12 }}</h2>
+        <table class="table table-striped">
+          <thead>
+            <tr>
+              <th ng-repeat="title in htop.Titles">
+                {{ title }}
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr ng-repeat="process in htop.Processes">
+              <td ng-repeat="data in process">
+                {{ data }}
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+    <script src="bower_components/angularjs/angular.min.js"></script>
+    <script src="docker.js" charset="utf-8"></script>
+</body>
+</html>
